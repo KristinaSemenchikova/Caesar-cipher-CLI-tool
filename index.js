@@ -11,13 +11,13 @@ const OPTIONS = {
     shift: ['-s', '--shift'],
     input: ['-i', '--input'],
     output: ['-o', '--output'],
-    action: ['-a', '--action']
+    action: ['-a', '--act']
 };
 
 const parsedArgs = {};
 
 const onAction = ({ rawArgs, ...options }) => {
-    if (!options.shift || !options.action) {
+    if (!(options.shift && options.act)) {
         console.error('Required option was missed')
         process.exit(9);
     }
@@ -30,7 +30,7 @@ const onAction = ({ rawArgs, ...options }) => {
 };
 
 Object.keys(OPTIONS).forEach(option => {
-    program.option(OPTIONS[option].join(' '), option).action(onAction);
+    program.option(OPTIONS[option].join(' '), 'descr').action(onAction);
 });
 
 program.parse(process.argv);
